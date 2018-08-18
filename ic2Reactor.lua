@@ -72,6 +72,7 @@ end
 local function GetInput(message)
   print(message)
   input=io.read()
+  return input
 end
 
 local function CheckInput()
@@ -80,17 +81,13 @@ local function CheckInput()
   elseif input=="start" or input=="timer" then
     ReactorStart()
   elseif input=="set max time" or input=="max cycles" then
-    GetInput("Input max cycles")
-    Input = maxTime
+    maxTime = tonumber(GetInput("Input max cycles"))
   elseif input=="set max heat" or input=="max temp" then
-    GetInput("Input max temp")
-    Input = maxTemp
+    maxTemp = tonumber(GetInput("Input max temp"))
   elseif input=="set cycle rate" or input=="time int" then
-    GetInput("Input cycle rate in seconds")
-    Input = timeInt
+    timeInt = tonumber(GetInput("Input cycle rate in seconds"))
   elseif input=="set redstone side" or input=="rs" then
-    GetInput("(interger) Input redstone side")
-    Input = maxTemp
+    cSide = tonumber(GetInput("(interger) Input redstone side"))
   end
  end
  
