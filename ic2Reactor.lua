@@ -52,12 +52,12 @@ local function ReactorCheck()
   if time >= maxTime then
     print("max cycles reached")
     ShutOff()
-   end
   end
+ end
   
 local function ReactorStart()
   time = 1
-  timerID=event.time(timeInt,function() ReactorCheck() end,maxTime)
+  timerID=event.timer(timeInt,function() ReactorCheck() end,maxTime)
 end
 
 
