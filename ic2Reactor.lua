@@ -41,26 +41,23 @@ end
 
 local function ReactorCheck()
   time = time + 1
+  local rHeat = reactor.getHeat()
   print("cycle: " .. time .. "/" .. maxTime)
-  print("Heat: " .. reactor.getHeat() .. "/" .. maxTemp)
+  print("Heat: " .. rHeat .. "/" .. maxTemp)
   
-  if reactor.getHeat() >= maxTemp then
+  if rHeat() >= maxTemp then
     print("reactor too hot")
     ShutOff()
+  end
+  if time >= maxTime then
+    print("max cycles reached")
+    ShutOff()
+   end
   end
   
 local function ReactorStart()
   time = 1
   timerID=event.time(timeInt,function() ReactorCheck() end,maxTime)
-end
-
-
-  
-  if time >= maxTime then
-    print("max cycles reached")
-    ShutOff()
-   end
-  
 end
 
 
