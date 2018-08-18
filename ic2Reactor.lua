@@ -2,7 +2,7 @@
 --note that this do not set primary components
 local component=require("component")
 local event=require("event")
-local sides=require("sides')
+local sides=require("sides")
 local rs=component.redstone
 local reactor=component.reactor
 
