@@ -39,11 +39,6 @@ local function Quit()
   print("Program shutting down")
 end
 
-local function ReactorStart()
-  time = 1
-  timerID=event.time(timeInt,function() Reactor() end,maxTime)
-end
-
 local function ReactorCheck()
   time = time + 1
   print("cycle: " .. time .. "/" .. maxTime)
@@ -53,6 +48,13 @@ local function ReactorCheck()
     print("reactor too hot")
     ShutOff()
   end
+  
+local function ReactorStart()
+  time = 1
+  timerID=event.time(timeInt,function() ReactorCheck() end,maxTime)
+end
+
+
   
   if time >= maxTime then
     print("max cycles reached")
