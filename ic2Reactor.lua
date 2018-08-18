@@ -3,8 +3,10 @@
 local component=require("component")
 local event=require("event")
 local sides=require("sides")
+local term=require("term")
 local rs=component.redstone
 local reactor=component.reactor
+
 
 --main var
 local isRunning=true
@@ -21,6 +23,7 @@ local timeInt=1
 
 --reactor var
 local maxTemp = 1000
+local recTemp = 0
 
 
   
@@ -40,10 +43,11 @@ local function Quit()
 end
 
 local function ReactorCheck()
+  term.clear()
   time = time + 1
   local rHeat = reactor.getHeat()
   print("cycle: " .. time .. "/" .. maxTime)
-  print("Heat: " .. rHeat .. "/" .. maxTemp)
+  print("Heat: " .. rHeat .. "/" .. maxTemp .. "(" .. recTemp ..")")
   
   if rHeat() >= maxTemp then
     print("reactor too hot")
@@ -51,16 +55,17 @@ local function ReactorCheck()
   else
      rs.setOutput(cSide,15)
   end
-  if time >= maxTime then
-    print("max cycles reached")
-    ShutOff()
+  
+  if rHeat > recTemp then
+    recTemp = rHeat
   end
  end
   
 local function ReactorStart()
-  time = 1
+  time = 0
   rs.setOutput(cSide,15)
   timeID=event.timer(timeInt,function() ReactorCheck() end,maxTime)
+  event.timer(maxTime*timeInt,function() ShutOff() end,1)
 end
 
 
