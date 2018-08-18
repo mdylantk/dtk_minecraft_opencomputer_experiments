@@ -29,12 +29,12 @@ local maxTemp = 1000
 
 local function ShutOff()
   rs.setOutput(cSide,0)
-  event.cancel(timeID)
   print("reactor is shutting down")
  end
 
 local function Quit()
   isRunning=false
+  event.cancel(timeID)
   ShutOff()
   print("Program shutting down")
 end
@@ -48,6 +48,8 @@ local function ReactorCheck()
   if rHeat() >= maxTemp then
     print("reactor too hot")
     ShutOff()
+  else
+     rs.setOutput(cSide,15)
   end
   if time >= maxTime then
     print("max cycles reached")
@@ -57,7 +59,8 @@ local function ReactorCheck()
   
 local function ReactorStart()
   time = 1
-  timerID=event.timer(timeInt,function() ReactorCheck() end,maxTime)
+  rs.setOutput(cSide,15)
+  timeID=event.timer(timeInt,function() ReactorCheck() end,maxTime)
 end
 
 
