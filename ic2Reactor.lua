@@ -49,7 +49,7 @@ local function ReactorCheck()
   print("cycle: " .. time .. "/" .. maxTime)
   print("Heat: " .. rHeat .. "/" .. maxTemp .. "(" .. recTemp ..")")
   
-  if rHeat() >= maxTemp then
+  if rHeat >= maxTemp then
     print("reactor too hot")
     ShutOff()
   else
