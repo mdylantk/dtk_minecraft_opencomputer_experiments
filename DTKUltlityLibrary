@@ -1,0 +1,43 @@
+--wip
+
+--requires
+local fs = require("filesystem")
+local serialization = require("serialization")
+
+
+
+--var
+
+local Library = {}
+
+
+
+
+
+--functions
+
+function Library.RequestInput(DisplayText)
+  print(message)
+  input=io.read()
+  return input
+end
+
+function Library.SaveTable(table,name)
+  local write = fs.open(name,"w")
+  file.write(serialization.serialize(table))
+  file.close
+ end
+ 
+ function Library.LoadTable(name)
+  local file = fs.open(name,"r")
+  local data = file.readAll()
+  file.close
+  return serialization.unserialize(data)
+ end
+ 
+ function Library.Debug()
+  print("Debugging Library")
+  local input = Library.RequestInput("Please input a function name. Some may not work in this mode")
+  Library[input]
+ end
+  
